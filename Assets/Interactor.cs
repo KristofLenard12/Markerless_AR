@@ -36,18 +36,18 @@ public class Interactor : MonoBehaviour
 			Debug.Log("Hit: " + hit.collider.gameObject.name);
 			if (hit.transform.tag == "Interactible")
 			{
-				interactText.gameObject.SetActive(true);
+				ActivateText();
 
 				GetInput(hit);
 			}
 			else
 			{
-				interactText.gameObject.SetActive(false);
+				DeactivateText();
 			}
 		}
 		else
 		{
-			interactText.gameObject.SetActive(false);
+			DeactivateText();
 		}
 	}
 
@@ -86,6 +86,21 @@ public class Interactor : MonoBehaviour
 		{
 			anim.SetBool("toOpen", true);
 		}
+	}
+
+	private void ActivateText()
+	{
+		if (interactText.gameObject.activeSelf) return;
+
+		interactText.gameObject.SetActive(true);
+	}
+
+	private void DeactivateText()
+	{
+
+		if (!interactText.gameObject.activeSelf) return;
+
+		interactText.gameObject.SetActive(false);
 	}
 
 	private void OnDrawGizmos()
