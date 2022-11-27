@@ -18,43 +18,47 @@ public class PortalManager : MonoBehaviour
     private List<Material> Materials;
     private static readonly int StencilComp = Shader.PropertyToID("_StencilComp");
 
-    private bool triggerActive = false;
+    private bool triggerActive;
 
     void Start()
     {
         
-         Materials = GetComponent<Renderer>().materials.ToList();
-         Debug.Log(Materials);
+        Walls.SetInt(StencilComp, (int)CompareFunction.Equal);
+        Chichen_Itza.SetInt(StencilComp, (int)CompareFunction.Equal);
+        Sphinx.SetInt(StencilComp, (int)CompareFunction.Equal);
+        Petra.SetInt(StencilComp, (int)CompareFunction.Equal);
     }
 
     private void Update()
     {
-        if (!triggerActive)
-        {
-            Walls.SetInt(StencilComp, (int)CompareFunction.Equal);
-            Chichen_Itza.SetInt(StencilComp, (int)CompareFunction.Equal);
-            Sphinx.SetInt(StencilComp, (int)CompareFunction.Equal);
-            Petra.SetInt(StencilComp, (int)CompareFunction.Equal);
-        }
+        
     }
 
     void OnTriggerStay (Collider collider)
     {
-        triggerActive = true;
+        
         Vector3 camPositionInPortalSpace = transform.InverseTransformPoint(MainCamera.transform.position);
 
-        if (camPositionInPortalSpace.y < 0.5f)
+        if (camPositionInPortalSpace.x < 0f)
         {
+            triggerActive = true;
             Walls.SetInt(StencilComp, (int)CompareFunction.Always);
             Chichen_Itza.SetInt(StencilComp, (int)CompareFunction.Always);
             Sphinx.SetInt(StencilComp, (int)CompareFunction.Always);
             Petra.SetInt(StencilComp, (int)CompareFunction.Always);
+        }
+        else
+        {
+            
         }
         
     }
 
     private void OnTriggerExit(Collider other)
     {
-        triggerActive = false;
+        Walls.SetInt(StencilComp, (int)CompareFunction.Equal);
+        Chichen_Itza.SetInt(StencilComp, (int)CompareFunction.Equal);
+        Sphinx.SetInt(StencilComp, (int)CompareFunction.Equal);
+        Petra.SetInt(StencilComp, (int)CompareFunction.Equal);
     }
 }

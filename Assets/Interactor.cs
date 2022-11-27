@@ -33,7 +33,7 @@ public class Interactor : MonoBehaviour
 
 		if (Physics.Raycast(ray, out hit, rayDistance, layerMask))
 		{
-			Debug.Log("Hit: " + hit.collider.gameObject.name);
+			//Debug.Log("Hit: " + hit.collider.gameObject.name);
 			if (hit.transform.tag == "Interactible")
 			{
 				ActivateText();
